@@ -4,56 +4,62 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Reserva {
-
-    private int idRecurso;
-    private int idResponsavel;
-    private int idTipoRecurso;
+    private int idReserva;
+    private Responsavel responsavel;
+    private TipoRecurso tipoRecurso;
+    private String descricao;
     private int quantidade;
-    private String Descricao;
     private LocalDate dataLocacao;
     private LocalTime horarioLocacao;
     private LocalDate dataDevolucao;
     private LocalTime horarioDevolucao;
     private boolean ativo;
 
+    public Reserva() {}
 
-    public Reserva() {
+    public Reserva(int idReserva, Responsavel responsavel, TipoRecurso tipoRecurso, String descricao, int quantidade, LocalDate dataLocacao, LocalTime horarioLocacao, LocalDate dataDevolucao, LocalTime horarioDevolucao, boolean ativo) {
+        this.setIdReserva(idReserva);
+        this.setResponsavel(responsavel);
+        this.setTipoRecurso(tipoRecurso);
+        this.setDescricao(descricao);
+        this.setQuantidade(quantidade);
+        this.setDataLocacao(dataLocacao);
+        this.setHorarioLocacao(horarioLocacao);
+        this.setDataDevolucao(dataDevolucao);
+        this.setHorarioDevolucao(horarioDevolucao);
+        this.setAtivo(ativo);
     }
 
-    public Reserva(int idResponsavel, int idTipoRecurso, int quantidade, String descricao, LocalDate dataLocacao, LocalTime horarioLocacao, LocalDate dataDevolucao, LocalTime horarioDevolucao, boolean ativo) {
-        this.idResponsavel = idResponsavel;
-        this.idTipoRecurso = idTipoRecurso;
-        this.quantidade = quantidade;
-        Descricao = descricao;
-        this.dataLocacao = dataLocacao;
-        this.horarioLocacao = horarioLocacao;
-        this.dataDevolucao = dataDevolucao;
-        this.horarioDevolucao = horarioDevolucao;
-        this.ativo = ativo;
+    public int getIdReserva() {
+        return idReserva;
     }
 
-    public int getIdRecurso() {
-        return idRecurso;
+    public void setIdReserva(int idReserva) {
+        this.idReserva = idReserva;
     }
 
-    public void setIdRecurso(int idRecurso) {
-        this.idRecurso = idRecurso;
+    public Responsavel getResponsavel() {
+        return responsavel;
     }
 
-    public int getIdResponsavel() {
-        return idResponsavel;
+    public void setResponsavel(Responsavel responsavel) {
+        this.responsavel = responsavel;
     }
 
-    public void setIdResponsavel(int idResponsavel) {
-        this.idResponsavel = idResponsavel;
+    public TipoRecurso getTipoRecurso() {
+        return tipoRecurso;
     }
 
-    public int getIdTipoRecurso() {
-        return idTipoRecurso;
+    public void setTipoRecurso(TipoRecurso tipoRecurso) {
+        this.tipoRecurso = tipoRecurso;
     }
 
-    public void setIdTipoRecurso(int idTipoRecurso) {
-        this.idTipoRecurso = idTipoRecurso;
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public int getQuantidade() {
@@ -62,14 +68,6 @@ public class Reserva {
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
-    }
-
-    public String getDescricao() {
-        return Descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        Descricao = descricao;
     }
 
     public LocalDate getDataLocacao() {

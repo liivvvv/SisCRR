@@ -1,49 +1,54 @@
 package model;
 
 public class TipoRecurso {
-    private int IdTipoRecurso;
-    private String TipoRecurso;
-    private String Descricao;
-    private boolean Ativo;
+    private int idTipoRecurso;
+    private String tipoRecurso;
+    private String descricao;
+    private boolean ativo;
 
-    public TipoRecurso() {
-    }
+    public TipoRecurso() {}
 
-    public TipoRecurso(String tipoRecurso, String descricao, boolean ativo) {
-        TipoRecurso = tipoRecurso;
-        Descricao = descricao;
-        Ativo = ativo;
+    public TipoRecurso(int idTipoRecurso, String tipoRecurso, String descricao, boolean ativo) {
+        this.setIdTipoRecurso(idTipoRecurso);
+        this.setTipoRecurso(tipoRecurso);
+        this.setDescricao(descricao);
+        this.setAtivo(ativo);
     }
 
     public int getIdTipoRecurso() {
-        return IdTipoRecurso;
+        return idTipoRecurso;
     }
 
     public void setIdTipoRecurso(int idTipoRecurso) {
-        IdTipoRecurso = idTipoRecurso;
+        this.idTipoRecurso = idTipoRecurso;
     }
 
     public String getTipoRecurso() {
-        return TipoRecurso;
+        return tipoRecurso;
     }
 
     public void setTipoRecurso(String tipoRecurso) {
-        TipoRecurso = tipoRecurso;
+        this.tipoRecurso = tipoRecurso;
     }
 
     public String getDescricao() {
-        return Descricao;
+        return descricao;
     }
 
     public void setDescricao(String descricao) {
-        Descricao = descricao;
+        this.descricao = descricao;
     }
 
     public boolean isAtivo() {
-        return Ativo;
+        return ativo;
     }
 
     public void setAtivo(boolean ativo) {
-        Ativo = ativo;
+        this.ativo = ativo;
+    }
+
+    @Override
+    public String toString() {
+        return this.tipoRecurso;
     }
 }

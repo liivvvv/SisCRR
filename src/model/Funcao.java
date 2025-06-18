@@ -1,49 +1,54 @@
 package model;
 
 public class Funcao {
-    private int IdFuncao;
-    private String TipoFuncao;
-    private String Permissao;
-    private boolean Ativo;
+    private int idFuncao;
+    private String tipoFuncao;
+    private String permissao;
+    private boolean ativo;
 
-    public Funcao() {
-    }
+    public Funcao() {}
 
-    public Funcao(String tipoFuncao, String permissao, boolean ativo) {
-        TipoFuncao = tipoFuncao;
-        Permissao = permissao;
-        Ativo = ativo;
+    public Funcao(int idFuncao, String tipoFuncao, String permissao, boolean ativo) {
+        this.setIdFuncao(idFuncao);
+        this.setTipoFuncao(tipoFuncao);
+        this.setPermissao(permissao);
+        this.setAtivo(ativo);
     }
 
     public int getIdFuncao() {
-        return IdFuncao;
+        return idFuncao;
     }
 
     public void setIdFuncao(int idFuncao) {
-        IdFuncao = idFuncao;
+        this.idFuncao = idFuncao;
     }
 
     public String getTipoFuncao() {
-        return TipoFuncao;
+        return tipoFuncao;
     }
 
     public void setTipoFuncao(String tipoFuncao) {
-        TipoFuncao = tipoFuncao;
+        this.tipoFuncao = tipoFuncao;
     }
 
     public String getPermissao() {
-        return Permissao;
+        return permissao;
     }
 
     public void setPermissao(String permissao) {
-        Permissao = permissao;
+        this.permissao = permissao;
     }
 
     public boolean isAtivo() {
-        return Ativo;
+        return ativo;
     }
 
     public void setAtivo(boolean ativo) {
-        Ativo = ativo;
+        this.ativo = ativo;
+    }
+
+    @Override
+    public String toString() {
+        return this.tipoFuncao;
     }
 }
