@@ -5,6 +5,7 @@ import dao.ResponsavelDAO;
 import model.Funcao;
 import model.Responsavel;
 import javax.swing.*;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -13,8 +14,7 @@ import java.util.List;
 
 public class TelaResponsavel extends JInternalFrame {
 
-    private JPanel telaResponsável;
-    private JPanel painelFormulario;
+    private JPanel telaResponsavel;
     private JTextField TF_nome;
     private JTextField TF_cracha;
     private JTextField TF_telefone;
@@ -37,14 +37,11 @@ public class TelaResponsavel extends JInternalFrame {
     private Responsavel responsavelSelecionado;
 
     public TelaResponsavel() {
-        setContentPane(telaResponsável);
+        setContentPane(telaResponsavel);
         setTitle("Cadastro de Responsáveis");
         setClosable(true);
         setIconifiable(true);
         setResizable(true);
-        //setSize(800, 600);
-        setLayout(new BorderLayout());
-        pack();
 
         this.responsavelDAO = new ResponsavelDAO();
         this.funcaoDAO = new FuncaoDAO();
@@ -53,6 +50,8 @@ public class TelaResponsavel extends JInternalFrame {
         popularComboBoxFuncoes();
         atualizarTabela();
         configurarAcoes();
+
+        pack();
     }
 
     // modelo tabela. dados vêm do banco

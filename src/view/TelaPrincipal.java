@@ -17,6 +17,7 @@ public class TelaPrincipal extends JFrame {
         setSize(1024, 768);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        setVisible(true);
 
         desktopPane = new JDesktopPane();
         add(desktopPane);
