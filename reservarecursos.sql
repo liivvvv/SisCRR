@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 17/06/2025 às 02:40
--- Versão do servidor: 10.4.32-MariaDB
--- Versão do PHP: 8.0.30
+-- Generation Time: Jun 21, 2025 at 12:12 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de dados: `reservarecursos`
+-- Database: `reservarecursos`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `funcao`
+-- Table structure for table `funcao`
 --
 
 CREATE TABLE `funcao` (
@@ -37,7 +37,7 @@ CREATE TABLE `funcao` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `funcao`
+-- Dumping data for table `funcao`
 --
 
 INSERT INTO `funcao` (`idfuncao`, `tipoFuncao`, `permissao`, `createdAt`, `updatedAt`, `ativo`) VALUES
@@ -50,11 +50,11 @@ INSERT INTO `funcao` (`idfuncao`, `tipoFuncao`, `permissao`, `createdAt`, `updat
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `reserva`
+-- Table structure for table `reserva`
 --
 
 CREATE TABLE `reserva` (
-  `idrecurso` int(11) NOT NULL,
+  `idreserva` int(11) NOT NULL,
   `idresponsavel` int(11) NOT NULL,
   `idtiporecurso` int(11) NOT NULL,
   `descricao` longtext DEFAULT NULL,
@@ -69,10 +69,10 @@ CREATE TABLE `reserva` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `reserva`
+-- Dumping data for table `reserva`
 --
 
-INSERT INTO `reserva` (`idrecurso`, `idresponsavel`, `idtiporecurso`, `descricao`, `quantidade`, `dataLocacao`, `horarioLocacao`, `dataDevolucao`, `horarioDevolucao`, `createdAt`, `updatedAt`, `ativo`) VALUES
+INSERT INTO `reserva` (`idreserva`, `idresponsavel`, `idtiporecurso`, `descricao`, `quantidade`, `dataLocacao`, `horarioLocacao`, `dataDevolucao`, `horarioDevolucao`, `createdAt`, `updatedAt`, `ativo`) VALUES
 (1, 1, 1, 'Tudo certo, sem anomalias', 1, '2025-06-13', '08:00:00', '2025-06-13', '12:00:00', '2025-06-16 23:09:56', '2025-06-16 23:09:57', 1),
 (2, 2, 2, 'Fiat Uno - Placa ABC1D23', 1, '2025-06-14', '13:00:00', '2025-06-13', '08:00:00', '2025-06-16 23:09:56', '2025-06-16 23:09:56', 1),
 (3, 3, 3, 'Datashow Epson X123     ', 1, '2025-06-15', '09:00:00', '2025-06-13', '08:00:00', '2025-06-16 23:09:56', '2025-06-16 23:09:56', 1),
@@ -81,7 +81,7 @@ INSERT INTO `reserva` (`idrecurso`, `idresponsavel`, `idtiporecurso`, `descricao
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `responsavel`
+-- Table structure for table `responsavel`
 --
 
 CREATE TABLE `responsavel` (
@@ -96,7 +96,7 @@ CREATE TABLE `responsavel` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `responsavel`
+-- Dumping data for table `responsavel`
 --
 
 INSERT INTO `responsavel` (`idresponsavel`, `idfuncao`, `nome`, `cracha`, `telefone`, `createdAt`, `updatedAt`, `ativo`) VALUES
@@ -104,12 +104,14 @@ INSERT INTO `responsavel` (`idresponsavel`, `idfuncao`, `nome`, `cracha`, `telef
 (2, 2, 'Bruno Silva', 'C002', '(44) 99888-0002', '2025-06-16 23:09:56', '2025-06-16 23:09:56', 1),
 (3, 3, 'Carlos Eduardo', 'C003', '(44) 99888-0003', '2025-06-16 23:09:56', '2025-06-16 23:09:56', 1),
 (4, 4, 'Daniela Souza', 'C004', '(44) 99888-0004', '2025-06-16 23:09:56', '2025-06-16 23:09:56', 1),
-(5, 5, 'Elaine Martins', 'C005', '(44) 99888-0005', '2025-06-16 23:09:56', '2025-06-16 23:09:56', 1);
+(5, 5, 'Elaine Martins', 'C005', '(44) 99888-0005', '2025-06-16 23:09:56', '2025-06-16 23:09:56', 1),
+(6, 2, 'Alexandre Leite', 'C008', '(44) 99123-4567', '2025-06-20 20:44:40', '2025-06-20 20:44:40', 1),
+(7, 2, 'Alexandre Leite', 'C008', '(44) 99123-4567', '2025-06-20 20:45:16', '2025-06-20 20:46:23', 0);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `tiporecurso`
+-- Table structure for table `tiporecurso`
 --
 
 CREATE TABLE `tiporecurso` (
@@ -122,87 +124,123 @@ CREATE TABLE `tiporecurso` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `tiporecurso`
+-- Dumping data for table `tiporecurso`
 --
 
 INSERT INTO `tiporecurso` (`idtiporecurso`, `tiporecurso`, `descricao`, `createdAt`, `updatedAt`, `ativo`) VALUES
 (1, 'Sala', 'Sala de aula equipada com projetor e quadro branco', '2025-06-16 23:09:56', '2025-06-16 23:09:56', 1),
 (2, 'Carro', 'Veículo da instituição para uso administrativo e pedagógico', '2025-06-16 23:09:56', '2025-06-16 23:09:56', 1),
 (3, 'Datashow', 'Projetor multimídia para apresentações', '2025-06-16 23:09:56', '2025-06-16 23:09:56', 1),
-(4, 'Notebook', 'Notebook para uso em atividades acadêmicas', '2025-06-16 23:09:56', '2025-06-16 23:09:56', 1);
+(4, 'Notebook', 'Notebook para uso em atividades acadêmicas', '2025-06-16 23:09:56', '2025-06-16 23:09:56', 1),
+(5, 'Livro', 'O Pequeno Príncipe', '2025-06-20 20:43:54', '2025-06-20 20:43:54', 1);
+
+-- --------------------------------------------------------
 
 --
--- Índices para tabelas despejadas
+-- Table structure for table `usuario`
+--
+
+CREATE TABLE `usuario` (
+  `idusuario` int(11) NOT NULL,
+  `login` varchar(50) NOT NULL,
+  `senha_hash` varchar(255) NOT NULL,
+  `papel` varchar(20) NOT NULL,
+  `ativo` tinyint(1) NOT NULL DEFAULT 1,
+  `createdAt` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `usuario`
+--
+
+INSERT INTO `usuario` (`idusuario`, `login`, `senha_hash`, `papel`, `ativo`, `createdAt`) VALUES
+(1, 'admin', '$2a$12$Ud8LYJcoZY.fAHncY3QMBeasR4ButJdXyAY8zGvRbMC.scKRqhhKm', 'ADMIN', 1, '2025-06-20 19:37:55');
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Índices de tabela `funcao`
+-- Indexes for table `funcao`
 --
 ALTER TABLE `funcao`
   ADD PRIMARY KEY (`idfuncao`);
 
 --
--- Índices de tabela `reserva`
+-- Indexes for table `reserva`
 --
 ALTER TABLE `reserva`
-  ADD PRIMARY KEY (`idrecurso`),
+  ADD PRIMARY KEY (`idreserva`),
   ADD KEY `fk_recurso_responsavel` (`idresponsavel`),
   ADD KEY `fk_recurso_tiporecurso` (`idtiporecurso`);
 
 --
--- Índices de tabela `responsavel`
+-- Indexes for table `responsavel`
 --
 ALTER TABLE `responsavel`
   ADD PRIMARY KEY (`idresponsavel`),
   ADD KEY `fk_responsavel_funcao` (`idfuncao`);
 
 --
--- Índices de tabela `tiporecurso`
+-- Indexes for table `tiporecurso`
 --
 ALTER TABLE `tiporecurso`
   ADD PRIMARY KEY (`idtiporecurso`);
 
 --
--- AUTO_INCREMENT para tabelas despejadas
+-- Indexes for table `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`idusuario`),
+  ADD UNIQUE KEY `login` (`login`);
+
+--
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de tabela `funcao`
+-- AUTO_INCREMENT for table `funcao`
 --
 ALTER TABLE `funcao`
   MODIFY `idfuncao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT de tabela `reserva`
+-- AUTO_INCREMENT for table `reserva`
 --
 ALTER TABLE `reserva`
-  MODIFY `idrecurso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idreserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT de tabela `responsavel`
+-- AUTO_INCREMENT for table `responsavel`
 --
 ALTER TABLE `responsavel`
-  MODIFY `idresponsavel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idresponsavel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT de tabela `tiporecurso`
+-- AUTO_INCREMENT for table `tiporecurso`
 --
 ALTER TABLE `tiporecurso`
-  MODIFY `idtiporecurso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idtiporecurso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- Restrições para tabelas despejadas
+-- AUTO_INCREMENT for table `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Constraints for dumped tables
 --
 
 --
--- Restrições para tabelas `reserva`
+-- Constraints for table `reserva`
 --
 ALTER TABLE `reserva`
   ADD CONSTRAINT `fk_recurso_responsavel` FOREIGN KEY (`idresponsavel`) REFERENCES `responsavel` (`idresponsavel`),
   ADD CONSTRAINT `fk_recurso_tiporecurso` FOREIGN KEY (`idtiporecurso`) REFERENCES `tiporecurso` (`idtiporecurso`);
 
 --
--- Restrições para tabelas `responsavel`
+-- Constraints for table `responsavel`
 --
 ALTER TABLE `responsavel`
   ADD CONSTRAINT `fk_responsavel_funcao` FOREIGN KEY (`idfuncao`) REFERENCES `funcao` (`idfuncao`);

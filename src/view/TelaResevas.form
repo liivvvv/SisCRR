@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="view.TelaReservas">
+  <grid id="27dc6" binding="telaReservas" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="539" height="400"/>
+    </constraints>
+    <properties>
+      <background color="-8800332"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="73b31" layout-manager="GridLayoutManager" row-count="6" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-8800332"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="c849a" class="javax.swing.JLabel" binding="LB_Responsavel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Bell MT" size="16" style="1"/>
+              <text value="Responsável"/>
+            </properties>
+          </component>
+          <component id="e33a3" class="javax.swing.JComboBox" binding="CB_Responsavel">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+          </component>
+          <component id="61eaf" class="javax.swing.JLabel" binding="LB_Recurso">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Bell MT" size="16" style="1"/>
+              <text value="Tipo de Recurso"/>
+            </properties>
+          </component>
+          <component id="532ec" class="javax.swing.JComboBox" binding="CB_Recurso">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+          </component>
+          <component id="e5d06" class="javax.swing.JLabel" binding="LB_Descricao">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Bell MT" size="16" style="1"/>
+              <text value="Descrição específica"/>
+            </properties>
+          </component>
+          <component id="4304" class="javax.swing.JTextField" binding="TF_Descricao">
+            <constraints>
+              <grid row="2" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties/>
+          </component>
+          <component id="58ccd" class="javax.swing.JLabel" binding="LB_Quantidade">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Bell MT" size="16" style="1"/>
+              <text value="Quantidade"/>
+            </properties>
+          </component>
+          <component id="ea23d" class="javax.swing.JSpinner" binding="spinnerQuantidade">
+            <constraints>
+              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+          </component>
+          <component id="3cb1c" class="javax.swing.JLabel" binding="LB_DataLocacao">
+            <constraints>
+              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Bell MT" size="16" style="1"/>
+              <text value="Data de Locação"/>
+            </properties>
+          </component>
+          <component id="28ad1" class="javax.swing.JTextField" binding="TF_DataLocacao">
+            <constraints>
+              <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <toolTipText value="dd/mm/yyyy"/>
+            </properties>
+          </component>
+          <component id="caee5" class="javax.swing.JLabel" binding="LB_DataDevolucao">
+            <constraints>
+              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Bell MT" size="16" style="1"/>
+              <text value="Data de Devolução"/>
+            </properties>
+          </component>
+          <component id="64126" class="javax.swing.JTextField" binding="TF_DataDevolucao">
+            <constraints>
+              <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <toolTipText value="dd/mm/yyyy"/>
+            </properties>
+          </component>
+          <component id="3151c" class="javax.swing.JLabel" binding="LB_HorarioLocacao">
+            <constraints>
+              <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Bell MT" size="16" style="1"/>
+              <text value="Horário "/>
+            </properties>
+          </component>
+          <component id="54515" class="javax.swing.JTextField" binding="TF_HorarioLocacao">
+            <constraints>
+              <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <toolTipText value="&quot;HH:mm&quot;"/>
+            </properties>
+          </component>
+          <component id="d6bd5" class="javax.swing.JLabel" binding="LB_HorarioDevolucao">
+            <constraints>
+              <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font name="Bell MT" size="16" style="1"/>
+              <text value="Horário"/>
+            </properties>
+          </component>
+          <component id="b2e1b" class="javax.swing.JTextField" binding="TF_HorarioDevolucao">
+            <constraints>
+              <grid row="5" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <toolTipText value="&quot;HH:mm&quot;"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <component id="27efa" class="javax.swing.JCheckBox" binding="checkAtivo">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-8800332"/>
+          <font name="Bell MT" size="16" style="1"/>
+          <text value="Ativo"/>
+        </properties>
+      </component>
+      <scrollpane id="63f2f">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-5384516"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="b9386" class="javax.swing.JTable" binding="tabelaReservas">
+            <constraints/>
+            <properties>
+              <font name="Bell MT" size="16"/>
+            </properties>
+          </component>
+        </children>
+      </scrollpane>
+      <grid id="d0541" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-8800332"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="9d81b" class="javax.swing.JButton" binding="novaReservaButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Nova Reserva"/>
+            </properties>
+          </component>
+          <component id="3e2c7" class="javax.swing.JButton" binding="salvarReservaButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Salvar Reserva"/>
+            </properties>
+          </component>
+          <component id="edd54" class="javax.swing.JButton" binding="excluirReservaButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Excluir Reserva"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>

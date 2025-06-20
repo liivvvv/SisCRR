@@ -1,5 +1,7 @@
 package view;
 
+import model.Usuario;
+
 import javax.swing.*;
 
 public class TelaPrincipal extends JFrame {
@@ -9,6 +11,7 @@ public class TelaPrincipal extends JFrame {
     private JMenuItem itemResponsavel;
     private JMenuItem itemTipoRecurso;
     private JMenuItem itemFazerReserva;
+    private JMenuItem itemGerenciarUsuarios;
 
     private JDesktopPane desktopPane;
 
@@ -17,7 +20,6 @@ public class TelaPrincipal extends JFrame {
         setSize(1024, 768);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setVisible(true);
 
         desktopPane = new JDesktopPane();
         add(desktopPane);
@@ -48,6 +50,18 @@ public class TelaPrincipal extends JFrame {
         itemFazerReserva.addActionListener(e -> {
             abrirTelaReservas();
         });
+
+
+
+        itemGerenciarUsuarios = new JMenuItem("Gerenciar Usuários");
+        menuCadastros.addSeparator();
+        menuCadastros.add(itemGerenciarUsuarios);
+
+        itemGerenciarUsuarios.addActionListener(e -> { // <-- 3. ADICIONAR A AÇÃO
+            abrirTelaCadastroUsuario();
+        });
+
+        aplicarPermissoes();
     }
 
     private void abrirTelaResponsavel() {
@@ -57,18 +71,38 @@ public class TelaPrincipal extends JFrame {
     }
 
     private void abrirTelaTipoRecurso() {
-        // **criar a classe TelaCadastroTipoRecurso depois
-        // TelaCadastroTipoRecurso telaTipoRecurso = new TelaCadastroTipoRecurso();
-        // desktopPane.add(telaTipoRecurso);
-        // telaTipoRecurso.setVisible(true);
-        JOptionPane.showMessageDialog(this, "Tela de Tipos de Recurso a ser implementada!");
+        TelaTipoRecurso telaTipoRecurso = new TelaTipoRecurso();
+        desktopPane.add(telaTipoRecurso);
+        telaTipoRecurso.setVisible(true);
     }
 
     private void abrirTelaReservas() {
-        // **criar a classe TelaReservas depois
-        // TelaReservas telaReservas = new TelaReservas();
-        // desktopPane.add(telaReservas);
-        // telaReservas.setVisible(true);
-        JOptionPane.showMessageDialog(this, "Tela de Reservas a ser implementada!");
+        TelaReservas telaReservas = new TelaReservas();
+        desktopPane.add(telaReservas);
+        telaReservas.setVisible(true);
+    }
+
+    private void abrirTelaCadastroUsuario() {
+        TelaCadastroUsuario tela = new TelaCadastroUsuario();
+        tela.setVisible(true);
+    }
+
+    private void aplicarPermissoes() {
+        Usuario usuario = util.SessaoUsuario.getUsuarioLogado();
+        if (usuario == null) {
+            menuCadastros.setEnabled(false);
+            menuReservas.setEnabled(false);
+            return;
+        }
+
+        String permissao = usuario.getPapel();
+
+        if (!permissao.equalsIgnoreCase("ADMIN")) {
+            // se não for admin, desabilita os cadastros base
+            itemResponsavel.setEnabled(false);
+            itemTipoRecurso.setEnabled(false);
+        }
+        // todos podem ver as reservas
     }
 }
+

@@ -9,7 +9,8 @@ import java.util.List;
 public class FuncaoDAO {
 
     public List<Funcao> listarTodas() {
-        String sql = "select * from funcao where ativo = true";
+        String sql;
+        sql = "select * from funcao where ativo = true";
         List<Funcao> funcoes = new ArrayList<>();
 
         try (Connection conn = Conexao.conectar();

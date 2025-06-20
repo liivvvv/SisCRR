@@ -43,7 +43,7 @@ public class ReservaDAO {
         String sql;
         sql = "update reserva set idresponsavel = ?, idtiporecurso = ?, descricao = ?, quantidade = ?, " +
                 "dataLocacao = ?, horarioLocacao = ?, dataDevolucao = ?, horarioDevolucao = ?, ativo = ? " +
-                "where idrecurso = ?";
+                "where idreserva = ?";
 
         try (Connection conn = Conexao.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -71,27 +71,36 @@ public class ReservaDAO {
     }
 
     public void excluir(int id) {
-        String sql;
-        sql = "delete from reserva where idrecurso = ?";
+        // A query agora usa DELETE FROM para apagar o registro completamente.
+        String sql = "DELETE FROM reserva WHERE idreserva = ?";
 
         try (Connection conn = Conexao.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
+
             stmt.setInt(1, id);
-            stmt.executeUpdate();
+
+            int linhasAfetadas = stmt.executeUpdate();
+
+            // Opcional: verificação para saber se algo foi realmente deletado.
+            if (linhasAfetadas > 0) {
+                System.out.println("Reserva com ID " + id + " foi deletada com sucesso.");
+            } else {
+                System.out.println("Nenhuma reserva encontrada com o ID " + id + " para deletar.");
+            }
+
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao excluir a reserva: " + e.getMessage(), e);
         }
     }
-
     public List<Reserva> listarTodas() {
         String sql;
         sql = "select r.*, " +
-                "resp.nome, resp.cracha, resp.telefone, resp.ativo as resp_ativo," +
-                "f.idfuncao, f.tipoFuncao, f.permissao, f.ativo as func_ativo," +
-                "tr.tiporecurso, tr.descricao as tr_descricao, tr.ativo as tr_ativo" +
-                "from reserva r" +
-                "join responsavel resp on r.idresponsavel = resp.idresponsavel" +
-                "join funcao f on resp.idfuncao = f.idfuncao" +
+                "resp.nome, resp.cracha, resp.telefone, resp.ativo as resp_ativo, " +
+                "f.idfuncao, f.tipoFuncao, f.permissao, f.ativo as func_ativo, " +
+                "tr.tiporecurso, tr.descricao as tr_descricao, tr.ativo as tr_ativo " +
+                "from reserva r " +
+                "join responsavel resp on r.idresponsavel = resp.idresponsavel " +
+                "join funcao f on resp.idfuncao = f.idfuncao " +
                 "join tiporecurso tr on r.idtiporecurso = tr.idtiporecurso";
 
         List<Reserva> reservas = new ArrayList<>();
@@ -123,7 +132,7 @@ public class ReservaDAO {
                 tipoRecurso.setAtivo(rs.getBoolean("tr_ativo"));
                 // 4 - cria o objeto Reserva e associa os outros
                 Reserva reserva = new Reserva();
-                reserva.setIdReserva(rs.getInt("idrecurso"));
+                reserva.setIdReserva(rs.getInt("idreserva"));
                 reserva.setDescricao(rs.getString("descricao"));
                 reserva.setQuantidade(rs.getInt("quantidade"));
                 reserva.setDataLocacao(rs.getDate("dataLocacao").toLocalDate());
@@ -149,34 +158,54 @@ public class ReservaDAO {
 
     // RF11 - Lógica de verificação de conflito
     public boolean existeConflito(String descricaoRecurso, LocalDateTime inicioNovaReserva, LocalDateTime fimNovaReserva, Integer idReservaSendoEditada) {
-        String sql = "select count(*) from reserva where descricao = ? " +
-                "and ativo = true " +
-                "and (CAST(CONCAT(dataLocacao, ' ', horarioLocacao) as DATETIME) < ?) " +
-                "and (CAST(CONCAT(dataDevolucao, ' ', horarioDevolucao) as DATETIME) > ?)";
+        // A lógica para detectar sobreposição de intervalos é:
+        // (Inicio_A < Fim_B) AND (Fim_A > Inicio_B)
+        // A = Reserva Existente no Banco
+        // B = Nova Reserva que estamos tentando salvar
 
+        // Concatenamos a data e a hora do banco para formar um DATETIME para comparação.
+        String sql = "SELECT COUNT(*) FROM reserva " +
+                "WHERE descricao = ? " +
+                "AND ativo = true " +
+                "AND (CAST(CONCAT(dataLocacao, ' ', horarioLocacao) AS DATETIME) < ?) " + // Início_A < Fim_B
+                "AND (CAST(CONCAT(dataDevolucao, ' ', horarioDevolucao) AS DATETIME) > ?)"; // Fim_A > Inicio_B
+
+        // Se estamos editando uma reserva, não podemos deixá-la conflitar com ela mesma.
         if (idReservaSendoEditada != null) {
-            sql += " and idrecurso != ?";
+            sql += " AND idreserva != ?"; // Corrigido para usar a coluna certa: idreserva
         }
 
-        try (Connection conn = Conexao.conectar();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        System.out.println("Executando checagem de conflito...");
+        System.out.println("SQL: " + sql);
+        System.out.println("Parâmetros: " + descricaoRecurso + ", " + fimNovaReserva + ", " + inicioNovaReserva);
 
-            stmt.setString(1, descricaoRecurso);
-            stmt.setTimestamp(2, Timestamp.valueOf(fimNovaReserva));
-            stmt.setTimestamp(3, Timestamp.valueOf(inicioNovaReserva));
+        try (Connection conn = Conexao.conectar();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            int parametroIndex = 1;
+            ps.setString(parametroIndex++, descricaoRecurso);
+            ps.setTimestamp(parametroIndex++, Timestamp.valueOf(fimNovaReserva));   // Fim_B
+            ps.setTimestamp(parametroIndex++, Timestamp.valueOf(inicioNovaReserva)); // Inicio_B
 
             if (idReservaSendoEditada != null) {
-                stmt.setInt(4, idReservaSendoEditada);
+                ps.setInt(parametroIndex++, idReservaSendoEditada);
+                System.out.println("Ignorando reserva ID: " + idReservaSendoEditada);
             }
 
-            try (ResultSet rs = stmt.executeQuery()) {
+            try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getInt(1) > 0;
+                    int count = rs.getInt(1);
+                    System.out.println("Reservas conflitantes encontradas: " + count);
+                    return count > 0; // Retorna true se encontrou 1 ou mais conflitos
                 }
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao checar conflito de reservas: " + e.getMessage(), e);
+            // Lançar a exceção com uma mensagem mais clara ajuda na depuração
+            throw new RuntimeException("Erro ao executar a checagem de conflito de reservas: " + e.getMessage(), e);
         }
+
+        // Se algo der errado, é mais seguro assumir que não há conflito do que bloquear o usuário,
+        // embora o ideal seja o catch tratar o erro.
         return false;
     }
 }

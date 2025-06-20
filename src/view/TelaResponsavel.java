@@ -50,8 +50,41 @@ public class TelaResponsavel extends JInternalFrame {
         popularComboBoxFuncoes();
         atualizarTabela();
         configurarAcoes();
+        adicionarIconesAosBotoes();
 
         pack();
+    }
+
+    private void adicionarIconesAosBotoes() {
+        try {
+            int tamanhoIcone = 20;
+
+            Icon iconeNovo = criarIconeRedimensionado("/imagens/plus.png", tamanhoIcone, tamanhoIcone);
+            Icon iconeSalvar = criarIconeRedimensionado("/imagens/diskette.png", tamanhoIcone, tamanhoIcone);
+            Icon iconeExcluir = criarIconeRedimensionado("/imagens/trash-can.png", tamanhoIcone, tamanhoIcone);
+
+            novoButton.setIcon(iconeNovo);
+            salvarButton.setIcon(iconeSalvar);
+            excluirButton.setIcon(iconeExcluir);
+
+            novoButton.setText("");
+            salvarButton.setText("");
+            excluirButton.setText("");
+
+        } catch (Exception ex) {
+            System.err.println("Falha ao configurar ícones: " + ex.getMessage());
+        }
+    }
+    private ImageIcon criarIconeRedimensionado(String caminho, int largura, int altura) {
+        try {
+            ImageIcon iconeOriginal = new ImageIcon(getClass().getResource(caminho));
+            Image imagemOriginal = iconeOriginal.getImage();
+            Image imagemRedimensionada = imagemOriginal.getScaledInstance(largura, altura, Image.SCALE_SMOOTH);
+            return new ImageIcon(imagemRedimensionada);
+        } catch (Exception ex) {
+            System.err.println("Erro ao carregar ou redimensionar o ícone: " + caminho);
+            return null;
+        }
     }
 
     // modelo tabela. dados vêm do banco
